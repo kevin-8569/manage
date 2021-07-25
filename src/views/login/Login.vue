@@ -68,15 +68,14 @@ export default {
         if (!valid) return;
         loginFn(this.login).then((res) => {
             console.log(res)
-          if(res.meta.status === 200){
-              this.$message.success('登录成功')
-          }else{
-              this.$message.error('登录失败');
-          }
+          if(res.meta.status !== 200) return this.$message.error('登录失败')
+
+          this.$message.success('登录成功')
+
           //1、将登录成功的token保存在客户端的sessionStorage中
             //1.1项目中除了登录之外的其他API接口，都必须在登录之后才能调用
             //1.2token只在当前打开的浏览器窗口有效，所以保存在sessionStorge中
-            window.sessionStorage.setItem('token',res.data.token)
+          window.sessionStorage.setItem('token',res.data.token)
           //2、通过编程式导航跳转到后台主页，地址是/home  
           this.$router.push('/home')
         });
