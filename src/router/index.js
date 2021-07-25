@@ -9,8 +9,15 @@ const Login = () =>
 const Home = () =>
     import ('views/home/Home')
 
+const Welcome = () =>
+    import ('views/home/child-comps/Welcome')
+
+const Users = () =>
+    import ('views/users/Users')
+
+
 const routes = [{
-        path: '/',
+        path: '',
         redirect: '/login'
     },
     {
@@ -18,7 +25,17 @@ const routes = [{
         component: Login
     }, {
         path: '/home',
-        component: Home
+        component: Home,
+        children: [{
+            path: '',
+            redirect: 'welcome'
+        }, {
+            path: 'welcome',
+            component: Welcome
+        }, {
+            path: 'users',
+            component: Users
+        }]
     }
 ]
 

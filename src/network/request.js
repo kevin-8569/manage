@@ -7,6 +7,8 @@ export function request(config) {
     })
 
     instance.interceptors.request.use(res => {
+        //为请求头对象，添加token验证的Authorization字段
+        res.headers.Authorization = window.sessionStorage.getItem('token')
         return res
     }, err => {
         console.log(err)
